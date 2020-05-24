@@ -1,0 +1,3 @@
+tetris
+src/*.o
+.depend
