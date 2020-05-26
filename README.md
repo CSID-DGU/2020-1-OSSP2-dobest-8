@@ -25,6 +25,7 @@ https://github.com/chaficnajjar/21st-century-tetris
 
 9주차:
 + 마우스 유저와 테트리스 유저가 충돌 시 테트리스 유저의 승리 판정 구현
++ 테트리스 블럭이 마우스 존의 80퍼센트를 차지할 시에 마우스의 승리
 + 승리 판정에 따른 결과를 출력하는 승리창 구현
 
 10주차:
@@ -32,6 +33,7 @@ https://github.com/chaficnajjar/21st-century-tetris
 + 테트리스 유저가 마우스 존 보다 높게 테트로미노를 쌓을 시 마우스 유저의 승리 판정 구현
 + 무적 아이템 기능 구현
 + 나머지 아이템 기능 구현 중
+
 
 
 ## Dependencies
