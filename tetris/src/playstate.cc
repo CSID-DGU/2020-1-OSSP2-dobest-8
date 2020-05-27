@@ -178,6 +178,8 @@ void PlayState::clean_up(GameEngine* game) {
     SDL_Quit();
 }
 
+//pause 기능
+
 void PlayState::pause() {
     music_engine->setAllSoundsPaused(true);
     paused = true;
