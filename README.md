@@ -34,6 +34,10 @@ https://github.com/chaficnajjar/21st-century-tetris
 + 무적 아이템 기능 구현
 + 나머지 아이템 기능 구현 중
 
+11주차:
++ 모드 변경기능 구현중
++ 무적 아이템, 블럭제거 아이템 구현 완료
+
 
 
 ## Dependencies
