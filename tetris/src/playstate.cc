@@ -763,20 +763,26 @@ void PlayState::render(GameEngine* game) {
 
     // draw mouse point
     SDL_Rect mouse_img_dst;
-    mouse_img_dst.x = (int)mouse.pos.x - mouse.size/2; mouse_img_dst.y = (int)mouse.pos.y - mouse.size/2;
-    mouse_img_dst.w = mouse_img_dst.h = mouse.size;
+    SDL_Texture* mouse_png=IMG_LoadTexture(game->renderer,"resources/images/mouse.png"); //이미지 로드
+    mouse_img_dst.x = (int)mouse.pos.x - (mouse.size+50)/2; mouse_img_dst.y = (int)mouse.pos.y - (mouse.size+50)/2;
+    mouse_img_dst.w = mouse_img_dst.h = mouse.size+50;
     SDL_Color lerped_color = mouse_colors[0];
     if(mouse.state != 0) {
         lerped_color = lerpColor(mouse_color_mid, mouse_colors[mouse.state], 
                                  mouse.state_remain_time/state_remain_times[mouse.state]);
     }
-    SDL_SetRenderDrawColor(game->renderer, 
+    if(mouse.state != 0) //아이템 먹었을 때만
+    {
+        //이미지(쥐) 색이 바뀌도록 함 (아이템 남은 시간을 알리기 위한 목적) 
+        SDL_SetTextureColorMod(mouse_png,lerped_color.r,lerped_color.g,lerped_color.b);
+    }
+    //mouse_img_dst SDL_Rect에 쥐 이미지인 mouse_png를 로드함
+    SDL_RenderCopy(game->renderer,mouse_png,nullptr,&mouse_img_dst);
+    /*SDL_SetRenderDrawColor(game->renderer, 
                            lerped_color.r, 
                            lerped_color.g, 
                            lerped_color.b, 
-                           lerped_color.a);
-    SDL_RenderFillRect(game->renderer, &mouse_img_dst);
-
+                           lerped_color.a);*/
     // draw item
     if(mouse_item.spawned) {
         SDL_Rect mouse_item_draw_dst;
