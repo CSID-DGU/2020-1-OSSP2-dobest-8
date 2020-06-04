@@ -92,7 +92,7 @@ void PlayState::init(GameEngine* game) {
             white, font_new_game, game->renderer);
     font_image_quit = render_text("Quit",
             white, font_quit, game->renderer);
-    font_image_tetrino_win = render_text("Tetrino Win!",
+    font_image_tetrino_win = render_text("Tetromino Win!",
             white, font_game_over, game->renderer);
     font_image_mouse_win = render_text("Mouse Win!",
             white, font_game_over, game->renderer);
