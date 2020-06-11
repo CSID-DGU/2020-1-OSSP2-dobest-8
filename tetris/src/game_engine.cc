@@ -22,11 +22,16 @@ GameEngine::GameEngine() {
 
     renderer = SDL_CreateRenderer(window, -1,
             SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    SDL_RenderSetLogicalSize(renderer,width,height);
+    SDL_RenderSetLogicalSize(renderer,width,height); //can resize contents of game.
 
     exit = false;
 }
-
+void GameEngine::multi() {
+    mode = 1;
+}
+void GameEngine::single() {
+    mode = 2;
+}
 void GameEngine::execute() {
     while (!exit) {
         input();

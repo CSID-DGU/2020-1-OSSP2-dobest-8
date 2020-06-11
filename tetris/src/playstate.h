@@ -29,11 +29,12 @@ class PlayState : public GameState {
 
     void pause();
     void resume();
-    void reset();
+    void reset(GameEngine* game);
 
     void input(GameEngine* game);
     void update(GameEngine* game);
     void render(GameEngine* game);
+
 
 
     static PlayState* Instance() { return &m_playstate; }
@@ -57,7 +58,7 @@ class PlayState : public GameState {
     // ===================== For Dobest update =====================
     /* TODO:
     */ 
-    void initDobestUpdate();
+    void initDobestUpdate(GameEngine* game);
 
     // mouse area
     SDL_Rect mouse_area_size;
@@ -153,6 +154,7 @@ class PlayState : public GameState {
     SDL_Texture*    font_image_quit;
     SDL_Texture*    font_image_tetrino_win;
     SDL_Texture*    font_image_mouse_win;
+    SDL_Texture*    font_image_game_over;
 
     // Frame rate.
     float acceleration;  // Multiplied by score to provide falling speed.

@@ -24,12 +24,16 @@ class GameEngine {
     void update();
     void render();
 
+    void multi();
+    void single();//모드 선택
+
     bool running() { return !exit; }
     void quit() { exit = true; }
 
     // Screen dimensions.
     int width;
     int height;
+    int mode; //멀티(1)모드 또는 싱글(2)모드 선택
 
     // Window and renderer.
     SDL_Window* window;

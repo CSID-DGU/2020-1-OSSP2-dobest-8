@@ -34,20 +34,24 @@ class MenuState : public GameState {
     static MenuState m_menustate;
 
     bool play;
+    bool play2; //기본 테트리스모드
     bool exit;
 
     // Font textures.
     SDL_Color       white;
     TTF_Font*       font_title;
     TTF_Font*       font_play;
+    TTF_Font*       font_play2; //기본 테트리스모드
     TTF_Font*       font_quit;
     SDL_Texture*    font_image_title;
     SDL_Texture*    font_image_play;
+    SDL_Texture*    font_image_play2; //기본 테트리스모드
     SDL_Texture*    font_image_quit;
 
     // Text position.
     int title_width, title_height;
     int play_width, play_height;
+    int play2_width, play2_height; //기본 테트리스모드
     int quit_width, quit_height;
 
     // Currently selected menu item.
