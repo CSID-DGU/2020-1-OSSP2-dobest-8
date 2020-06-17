@@ -108,9 +108,9 @@ void PlayState::init(GameEngine* game) {
         font_item_description = TTF_OpenFont("resources/fonts/bitwise.ttf", 13);
 
         // 아이템 설명 텍스트
-        item_description[0] = render_text("Red: Invincible", white, font_item_description, game->renderer);
-        item_description[1] = render_text("Blue: destroy block", white, font_item_description, game->renderer);
-        item_description[2] = render_text("white: generate block", white, font_item_description, game->renderer);
+        item_description[0] = render_text("Shield Item: Invincible", white, font_item_description, game->renderer);
+        item_description[1] = render_text("Minus Item: destroy block", white, font_item_description, game->renderer);
+        item_description[2] = render_text("Plus Item: generate block", white, font_item_description, game->renderer);
     }
 
     // tetromino description
@@ -811,15 +811,42 @@ void PlayState::render(GameEngine* game) {
         // draw item
         if(mouse_item.spawned) {
             SDL_Rect mouse_item_draw_dst;
-            mouse_item_draw_dst.x = GAME_OFFSET + mouse_item.pos.x*(board->BLOCK_WIDTH) + (board->BLOCK_WIDTH)/2 - mouse_item.size/2;
-            mouse_item_draw_dst.y = GAME_OFFSET + mouse_item.pos.y*(board->BLOCK_HEIGHT) + (board->BLOCK_HEIGHT)/2 - mouse_item.size/2;
-            mouse_item_draw_dst.w = mouse_item_draw_dst.h = mouse_item.size;
-            SDL_SetRenderDrawColor(game->renderer,
+            mouse_item_draw_dst.x = GAME_OFFSET + mouse_item.pos.x*(board->BLOCK_WIDTH) + (board->BLOCK_WIDTH)/2 - (mouse_item.size+10)/2;
+            mouse_item_draw_dst.y = GAME_OFFSET + mouse_item.pos.y*(board->BLOCK_HEIGHT) + (board->BLOCK_HEIGHT)/2 - (mouse_item.size+10)/2;
+            mouse_item_draw_dst.w = mouse_item_draw_dst.h = mouse_item.size+10;
+            if(mouse_item.type == 0)
+            {
+                SDL_SetRenderDrawColor(game->renderer,
                                 item_colors[mouse_item.type].r,
                                 item_colors[mouse_item.type].g,
                                 item_colors[mouse_item.type].b,
                                 item_colors[mouse_item.type].a);
-            SDL_RenderFillRect(game->renderer, &mouse_item_draw_dst);
+                SDL_RenderFillRect(game->renderer, &mouse_item_draw_dst);
+            }
+            else if(mouse_item.type == 1) //무적일 경우
+            {
+                SDL_Texture* item_png = IMG_LoadTexture(game->renderer,"resources/images/shield.png"); //무적(방패) 이미지 로드
+                //mouse_item_draw_dst SDL_Rect에 아이템 이미지인 item_png를 로드함
+                SDL_RenderCopy(game->renderer,item_png,nullptr,&mouse_item_draw_dst);
+            }
+            else if(mouse_item.type == 2) //블럭 파괴일 경우
+            {
+                SDL_Texture* item_png = IMG_LoadTexture(game->renderer,"resources/images/minus.png"); //파괴(마이너스) 이미지 로드
+                //mouse_item_draw_dst SDL_Rect에 아이템 이미지인 item_png를 로드함
+                SDL_RenderCopy(game->renderer,item_png,nullptr,&mouse_item_draw_dst);
+            }
+            else if(mouse_item.type == 3) //블럭 생성일 경우
+            {
+                SDL_Texture* item_png = IMG_LoadTexture(game->renderer,"resources/images/plus.png"); //생성(플러스) 이미지 로드
+                //mouse_item_draw_dst SDL_Rect에 아이템 이미지인 item_png를 로드함
+                SDL_RenderCopy(game->renderer,item_png,nullptr,&mouse_item_draw_dst);
+            }
+            /*SDL_SetRenderDrawColor(game->renderer,
+                                item_colors[mouse_item.type].r,
+                                item_colors[mouse_item.type].g,
+                                item_colors[mouse_item.type].b,
+                                item_colors[mouse_item.type].a);
+            SDL_RenderFillRect(game->renderer, &mouse_item_draw_dst);*/
         }
 
         // Mouse Area Box
