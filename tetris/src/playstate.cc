@@ -1026,3 +1026,4 @@ void PlayState::holdSwap() {
     tetro->set_position(static_cast<int>(board->COLS/2), 0);
     tetro->drop();
 }
+// 홀드 구현
