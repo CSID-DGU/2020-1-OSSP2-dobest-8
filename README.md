@@ -62,7 +62,7 @@ You will need:
 
 Install all dependencies on Ubuntu 14.04 and above:
 
-`sudo apt-get install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev`
+`sudo apt-get install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev libsdl2-mixer-dev`
 
 ## Get Source and Build
 
@@ -77,6 +77,24 @@ make
 To run the game:
 
 `./tetris`.
+
+## How to play
+
+Up arrow/w      -> rotates the current tetromino
+
+Left arrow/a    -> moves the current tetromino to the left
+
+Right arrow/d   -> moves the current tetromino to the right
+
+Down arrow/s    -> speeds up the current tetromino
+
+Spacebar        -> zooms the current tetromino to the bottom
+
+p               -> pauses/resumes game
+
+New Game        -> starts new game
+
+Quit            -> quits
 
 ## License and Credits
 
