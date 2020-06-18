@@ -58,6 +58,7 @@ void PlayState::initDobestUpdate(GameEngine* game) {
 }
 
 void PlayState::init(GameEngine* game) {
+    Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,2048); //오디오 라이브러리 초기화
     // Game objects.
     board        = new Board();
     tetro        = new Tetromino(rand()%7);       // Current tetromino.
@@ -438,6 +439,8 @@ void PlayState::update(GameEngine* game) {
         // check if tetromino over mouse_area
         for(int i=0; i<board->COLS; ++i) {
             if(board->color[mouse_area_size.y-1][i] != -1) {
+                Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
+                Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                 game_over = true;
                 winner = 2;
                 return;
@@ -461,6 +464,8 @@ void PlayState::update(GameEngine* game) {
         // Add fallen tetromino to the board and check if tetromino.
         // has crossed over the top border.
         if (!board->add(tetro)) {
+            Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
+            Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
             game_over = true;
             winner = 2;
             return;
@@ -612,6 +617,8 @@ void PlayState::update(GameEngine* game) {
         if(mouse_item.spawned) {
             SDL_Point mp = toBoardCoordinate(mouse.pos.x, mouse.pos.y);
             if(mp.x == mouse_item.pos.x && mp.y == mouse_item.pos.y) {
+                Mix_Chunk *itemsound = Mix_LoadWAV("resources/sounds/item.wav"); //아이템효과음 로드
+                Mix_PlayChannel(-1,itemsound,0); //효과음 재생
                 mouse.state = mouse_item.type;
                 mouse_item.spawned = false;
                 mouse.state_remain_time = state_remain_times[mouse.state]; 
@@ -634,6 +641,8 @@ void PlayState::update(GameEngine* game) {
                 int y = tetro->get_block_y(i);
                 if(x == mp.x && y == mp.y) {
                     if(1 != mouse.state) {
+                        Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
+                        Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                         game_over = true;
                         winner = 1;
                         return;
@@ -646,6 +655,8 @@ void PlayState::update(GameEngine* game) {
             if(board->color[mp.y][mp.x] != -1 &&
             board->color[mp.y][mp.x] != 10) {    // 10: mouse player generate block
                 if(0 == mouse.state || 3 == mouse.state) {
+                    Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
+                    Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                     game_over = true;
                     winner = 1;
                     return;
@@ -663,6 +674,8 @@ void PlayState::update(GameEngine* game) {
             int cnt = countMouseAreaBlocks();
             
             if(cnt >= limit) {
+                Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
+                Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                 game_over = true;
                 winner = 2;
                 return;
