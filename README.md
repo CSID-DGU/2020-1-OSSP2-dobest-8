@@ -98,7 +98,7 @@ New Game          -> Starts new game
 
 Quit              -> Quits
 
-*Below is for multi-mode.
+//Below is for multi-mode.
 
 Mouse Right Click -> Move Mouse user
 And Drag
