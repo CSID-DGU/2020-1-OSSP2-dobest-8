@@ -80,23 +80,30 @@ To run the game:
 
 ## How to play
 
-Up arrow/w      -> rotates the current tetromino
+Up arrow/w        -> Rotates the current tetromino
+ 
+Left arrow/a      -> Moves the current tetromino to the left
 
-Left arrow/a    -> moves the current tetromino to the left
+Right arrow/d     -> Moves the current tetromino to the right
 
-Right arrow/d   -> moves the current tetromino to the right
+Down arrow/s      -> Speeds up the current tetromino
 
-Down arrow/s    -> speeds up the current tetromino
+Spacebar          -> Zooms the current tetromino to the bottom
 
-Spacebar        -> zooms the current tetromino to the bottom
+Shift             -> Hold tetromino
 
-Shift           -> hold tetromino
+p                 -> Pauses/resumes game
 
-p               -> pauses/resumes game
+New Game          -> Starts new game
 
-New Game        -> starts new game
+Quit              -> Quits
 
-Quit            -> quits
+*Below is for multi-mode.
+
+Mouse Right Click -> Move Mouse user
+And Drag
+
+Mouse Right Click -> Use Create Blcok Item
 
 ## License and Credits
 
