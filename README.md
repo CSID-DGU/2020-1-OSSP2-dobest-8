@@ -100,8 +100,8 @@ Quit              -> Quits
 
 //Below is for multi-mode.
 
-Mouse Right Click -> Move Mouse user
-And Drag
+Mouse Left Click 
+And Drag          -> Move Mouse user
 
 Mouse Right Click -> Use Create Blcok Item
 
