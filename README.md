@@ -34,6 +34,7 @@ https://github.com/chaficnajjar/21st-century-tetris
 + 무적 아이템 기능 구현
 
 11주차:
++ 홀드 기능 구현
 + 테트로미노를 파괴하는 아이템 기능 구현
 + 중간 발표 준비 및 중간 발표
 
