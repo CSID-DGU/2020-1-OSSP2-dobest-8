@@ -105,6 +105,19 @@ And Drag
 
 Mouse Right Click -> Use Create Blcok Item
 
+## Items
+
+Destroy Block Item
+-If you eat Negative icon item, you can remove blocks.
+Crash into the block you want.
+
+Create Block
+If you eat Plus icon item, you can remove blocks.
+Click Right Mouse button.
+
+If you eat Shield icon item, you can remove blocks.
+You don't die if you crash the block for a certain period of time.
+
 ## License and Credits
 
 ```
