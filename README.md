@@ -90,6 +90,8 @@ Down arrow/s    -> speeds up the current tetromino
 
 Spacebar        -> zooms the current tetromino to the bottom
 
+Shift           -> hold tetromino
+
 p               -> pauses/resumes game
 
 New Game        -> starts new game
