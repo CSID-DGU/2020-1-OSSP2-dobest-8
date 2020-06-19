@@ -111,11 +111,12 @@ Destroy Block Item
 -If you eat Negative icon item, you can remove blocks.
 Crash into the block you want.
 
-Create Block
-If you eat Plus icon item, you can remove blocks.
+Create Block Item
+-If you eat Plus icon item, you can remove blocks.
 Click Right Mouse button.
 
-If you eat Shield icon item, you can remove blocks.
+God Item
+-If you eat Shield icon item,
 You don't die if you crash the block for a certain period of time.
 
 ## License and Credits
