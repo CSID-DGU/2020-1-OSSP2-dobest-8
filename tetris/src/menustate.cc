@@ -105,6 +105,7 @@ void MenuState::update(GameEngine* game) {
     } else if (play2) { //기본 테트리스 모드
         game->single(); //싱글모드 실행
         game->push_state(PlayState::Instance());
+        //game->pop_state();
     } else if (exit) {
         game->quit();
     }

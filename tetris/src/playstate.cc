@@ -439,6 +439,7 @@ void PlayState::update(GameEngine* game) {
         // check if tetromino over mouse_area
         for(int i=0; i<board->COLS; ++i) {
             if(board->color[mouse_area_size.y-1][i] != -1) {
+                music_engine->stopAllSounds(); //배경음악 끔
                 Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
                 Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                 game_over = true;
@@ -464,6 +465,7 @@ void PlayState::update(GameEngine* game) {
         // Add fallen tetromino to the board and check if tetromino.
         // has crossed over the top border.
         if (!board->add(tetro)) {
+            music_engine->stopAllSounds(); //배경음악 끔
             Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
             Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
             game_over = true;
@@ -641,6 +643,7 @@ void PlayState::update(GameEngine* game) {
                 int y = tetro->get_block_y(i);
                 if(x == mp.x && y == mp.y) {
                     if(1 != mouse.state) {
+                        music_engine->stopAllSounds(); //배경음악 끔
                         Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
                         Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                         game_over = true;
@@ -655,6 +658,7 @@ void PlayState::update(GameEngine* game) {
             if(board->color[mp.y][mp.x] != -1 &&
             board->color[mp.y][mp.x] != 10) {    // 10: mouse player generate block
                 if(0 == mouse.state || 3 == mouse.state) {
+                    music_engine->stopAllSounds(); //배경음악 끔
                     Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
                     Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                     game_over = true;
@@ -674,6 +678,7 @@ void PlayState::update(GameEngine* game) {
             int cnt = countMouseAreaBlocks();
             
             if(cnt >= limit) {
+                music_engine->stopAllSounds(); //배경음악 끔
                 Mix_Chunk *gameover_sound = Mix_LoadWAV("resources/sounds/gameover.wav"); //게임오버효과음 로드
                 Mix_PlayChannel(-1,gameover_sound,0); //효과음 재생
                 game_over = true;
