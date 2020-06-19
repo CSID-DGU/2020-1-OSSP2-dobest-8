@@ -105,7 +105,7 @@ And Drag
 
 Mouse Right Click -> Use Create Blcok Item
 
-## Items
+## Multimode Items
 
 Destroy Block Item
 -If you eat Negative icon item, you can remove blocks.
