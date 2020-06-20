@@ -81,6 +81,7 @@ void PlayState::init(GameEngine* game) {
     font_score_text = TTF_OpenFont("resources/fonts/bitwise.ttf", 20);
     font_score = TTF_OpenFont("resources/fonts/bitwise.ttf", 20);
     font_new_game = TTF_OpenFont("resources/fonts/bitwise.ttf", 20);
+    font_menu = TTF_OpenFont("resources/fonts/bitwise.ttf", 20);
     font_quit = TTF_OpenFont("resources/fonts/bitwise.ttf", 20);
     font_game_over = TTF_OpenFont("resources/fonts/bitwise.ttf", 64);
 
@@ -92,8 +93,10 @@ void PlayState::init(GameEngine* game) {
             white, font_score_text, game->renderer);
     font_image_score = render_text(std::to_string(board->get_score()),
         white, font_score, game->renderer);
-    font_image_new_game = render_text("New game",
+    font_image_new_game = render_text("Reset",
             white, font_new_game, game->renderer);
+    font_image_menu = render_text("Menu",
+            white, font_menu, game->renderer);
     font_image_quit = render_text("Quit",
             white, font_quit, game->renderer);
     font_image_tetrino_win = render_text("Tetromino Win!",
@@ -131,6 +134,8 @@ void PlayState::init(GameEngine* game) {
     newgameup       = false;
     quitdown        = false;
     quitup          = false;
+    menudown        = false;
+    menuup          = false;
 
     // Buttons coordinates.
     newgamex1       = GAME_OFFSET+board->WIDTH+board->BLOCK_WIDTH;
@@ -162,6 +167,7 @@ void PlayState::clean_up(GameEngine* game) {
     TTF_CloseFont(font_score_text);
     TTF_CloseFont(font_score);
     TTF_CloseFont(font_new_game);
+    TTF_CloseFont(font_menu);
     TTF_CloseFont(font_quit);
     TTF_CloseFont(font_game_over);
     if(game->mode == 1)
@@ -175,6 +181,7 @@ void PlayState::clean_up(GameEngine* game) {
     SDL_DestroyTexture(font_image_score_text);
     SDL_DestroyTexture(font_image_score);
     SDL_DestroyTexture(font_image_new_game);
+    SDL_DestroyTexture(font_image_menu);
     SDL_DestroyTexture(font_image_quit);
     SDL_DestroyTexture(font_image_tetrino_win);
     SDL_DestroyTexture(font_image_mouse_win);
@@ -326,20 +333,32 @@ void PlayState::input(GameEngine *game) {
 
         // Mouse button clicked.
         if (event.type == SDL_MOUSEBUTTONDOWN) {
-            switch (event.button.button) {
+            switch (event.button.button) 
+            {
                 // Left mouse button clicked.
-                case SDL_BUTTON_LEFT: {
+                case SDL_BUTTON_LEFT: 
+                {
                     int x = event.button.x;
                     int y = event.button.y;
                     if (x > newgamex1 &&
-                        x < newgamex2) {
+                        x < newgamex2) 
+                    {
                         // And mouse cursor is on "New Game" button.
                         if (y > newgamey2 &&
-                            y < newgamey1) {
+                            y < newgamey1) 
+                        {
                             newgamedown = true;
+                        }
+                        // And mouse cursor is on "Menu" button.
+                        else if (y > newgamey2+(2.5)*board->BLOCK_HEIGHT &&
+                                   y < newgamey1+(2.5)*board->BLOCK_HEIGHT) 
+                        {
+                            menudown = true;
+                        }
                         // And mouse cursor is on "Quit" button.
-                        } else if (y > newgamey2+4*board->BLOCK_HEIGHT &&
-                                   y < newgamey1+4*board->BLOCK_HEIGHT) {
+                        else if (y > newgamey2+5*board->BLOCK_HEIGHT &&
+                                   y < newgamey1+5*board->BLOCK_HEIGHT) 
+                        {
                             quitdown = true;
                         }
                     }
@@ -381,16 +400,27 @@ void PlayState::input(GameEngine *game) {
         if (event.type == SDL_MOUSEBUTTONUP) {
             switch (event.button.button) {
                 // Left mouse button released.
-                case SDL_BUTTON_LEFT: {
+                case SDL_BUTTON_LEFT: 
+                {
                     int x = event.button.x;
                     int y = event.button.y;
-                    if (x > newgamex1 && x < newgamex2) {
+                    if (x > newgamex1 && x < newgamex2) 
+                    {
                         // And mouse cursor is on "New Game" button.
-                        if (y > newgamey2 && y < newgamey1) {
+                        if (y > newgamey2 && y < newgamey1) 
+                        {
                             newgameup = true;
+                        }
+                        // And mouse cursor is on "Menu" button.
+                        else if (y > newgamey2+(2.5)*board->BLOCK_HEIGHT &&
+                                 y < newgamey1+(2.5)*board->BLOCK_HEIGHT) 
+                        {
+                            menuup = true;
+                        }
                         // And mouse cursor is on "Quit" button.
-                        } else if (y > newgamey2+4*board->BLOCK_HEIGHT &&
-                                 y < newgamey1+4*board->BLOCK_HEIGHT) {
+                        else if (y > newgamey2+5*board->BLOCK_HEIGHT &&
+                                 y < newgamey1+5*board->BLOCK_HEIGHT) 
+                        {
                             quitup = true;
                         }
                     }
@@ -421,8 +451,15 @@ void PlayState::update(GameEngine* game) {
     static float deltatime = 0.0f;
 
     // New Game button was pressed.
+    // 게임을 리셋함
     if (newgameup && newgamedown) {
         reset(game);
+    }
+
+    // Menu button was pressed.
+    // 메인메뉴로 돌아감
+    if (menuup && menudown) {
+        game->push_state(MenuState::Instance());
     }
 
     // Quit button or 'x'/F4 was pressed.
@@ -935,23 +972,33 @@ void PlayState::render(GameEngine* game) {
     }
 
     // Create "New Game" button.
-    int blue[4] = {0, 0, 255, 255};
+    int purple[4] = {137, 119, 173, 255};
     create_button(game, newgamex1, newgamey2,
-            7*board->BLOCK_WIDTH, 2*board->BLOCK_HEIGHT, blue);
+            7*board->BLOCK_WIDTH, 2*board->BLOCK_HEIGHT, purple);
 
     // Render "New Game" font.
     render_texture(font_image_new_game,
             game->renderer, newgamex1+10, newgamey2+10);
 
-    // Create "Quit" button.
-    int red[4] = {255, 0, 0, 255};
+    // Create "Menu" button.
+    int pink[4] = {157, 73, 97, 255};
     create_button(game, newgamex1,
-            newgamey2+4*board->BLOCK_HEIGHT, 7*board->BLOCK_WIDTH,
+            newgamey2+(2.5)*board->BLOCK_HEIGHT, 7*board->BLOCK_WIDTH,
+            2*board->BLOCK_HEIGHT, pink);
+
+    // Render "Menu" font.
+    render_texture(font_image_menu,
+            game->renderer, newgamex1+10, newgamey2+(2.5)*board->BLOCK_HEIGHT+10);
+
+    // Create "Quit" button.
+    int red[4] = {219, 68, 85, 255};
+    create_button(game, newgamex1,
+            newgamey2+5*board->BLOCK_HEIGHT, 7*board->BLOCK_WIDTH,
             2*board->BLOCK_HEIGHT, red);
 
     // Render "Quit" font.
     render_texture(font_image_quit,
-            game->renderer, newgamex1+10, newgamey2+4*board->BLOCK_HEIGHT+10);
+            game->renderer, newgamex1+10, newgamey2+5*board->BLOCK_HEIGHT+10);
 
     // Swap buffers.
     SDL_RenderPresent(game->renderer);

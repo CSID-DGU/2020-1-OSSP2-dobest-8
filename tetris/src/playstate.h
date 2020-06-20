@@ -13,6 +13,7 @@
 
 
 #include "src/gamestate.h"
+#include "src/menustate.h"
 
 class Tetromino;
 class Board;
@@ -144,6 +145,7 @@ class PlayState : public GameState {
     TTF_Font*       font_score_text;
     TTF_Font*       font_score;
     TTF_Font*       font_new_game;
+    TTF_Font*       font_menu;
     TTF_Font*       font_quit;
     TTF_Font*       font_game_over;
 
@@ -152,6 +154,7 @@ class PlayState : public GameState {
     SDL_Texture*    font_image_score_text;
     SDL_Texture*    font_image_score;
     SDL_Texture*    font_image_new_game;
+    SDL_Texture*    font_image_menu;
     SDL_Texture*    font_image_quit;
     SDL_Texture*    font_image_tetrino_win;
     SDL_Texture*    font_image_mouse_win;
@@ -171,6 +174,10 @@ class PlayState : public GameState {
     bool newgameup;  // True when player releases "New Game" button.
     bool quitdown;  // True when player presses "Quit" button.
     bool quitup;  // True when player releases "Quit" button.
+    // True when player presses "Menu" button.
+    bool menudown;  
+    // True when player releases "Menu" button.
+    bool menuup;  
 
     // Buttons coordinates.
     int newgamex1;
