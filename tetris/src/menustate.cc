@@ -1,6 +1,7 @@
 // Copyright [2015] <Chafic Najjar>
 
 #include "src/menustate.h"
+#include "src/helpstate.h"
 #include "src/playstate.h"
 #include "src/utilities.h"
 
@@ -9,6 +10,7 @@ MenuState MenuState::m_menustate;
 void MenuState::init(GameEngine* game) {
     play = false;
     play2 = false; //기본 테트리스 모드
+    help = false; //도움말
     exit = false;
 
     // Initialize fonts and font color.
@@ -19,11 +21,13 @@ void MenuState::init(GameEngine* game) {
     font_title = TTF_OpenFont("resources/fonts/Basica.ttf", 32);
     font_play = TTF_OpenFont("resources/fonts/Basica.ttf", 16);
     font_play2 = TTF_OpenFont("resources/fonts/Basica.ttf", 16); //기본 테트리스 모드
+    font_help = TTF_OpenFont("resources/fonts/Basica.ttf", 16); //도움말
     font_quit = TTF_OpenFont("resources/fonts/Basica.ttf", 16);
 
     font_image_title = render_text("Tetris", white, font_title, game->renderer);
     font_image_play = render_text("MultiPlay", white, font_play, game->renderer);
     font_image_play2 = render_text("SinglePlay", white, font_play2, game->renderer); //기본 테트리스 모드
+    font_image_help = render_text("Help", white, font_help, game->renderer); //도움말
     font_image_quit = render_text("Quit", white, font_quit, game->renderer);
 
     // Text position.
@@ -33,12 +37,15 @@ void MenuState::init(GameEngine* game) {
             nullptr, nullptr, &play_width, &play_height);
     SDL_QueryTexture(font_image_play2,
             nullptr, nullptr, &play2_width, &play2_height); //기본 테트리스 모드
+    SDL_QueryTexture(font_image_help,
+            nullptr, nullptr, &help_width, &help_height); //도움말
     SDL_QueryTexture(font_image_quit,
             nullptr, nullptr, &quit_width, &quit_height);
 
     currently_selected = 0;
     //items = 2;
-    items = 3;
+    //items = 3;
+    items = 4; //다음 메뉴 개수
 }
 
 void MenuState::clean_up(GameEngine* game) {
@@ -46,12 +53,14 @@ void MenuState::clean_up(GameEngine* game) {
     TTF_CloseFont(font_title);
     TTF_CloseFont(font_play);
     TTF_CloseFont(font_play2); //기본 테트리스 모드
+    TTF_CloseFont(font_help); //도움말
     TTF_CloseFont(font_quit);
 
     // Destroy all textures.
     SDL_DestroyTexture(font_image_title);
     SDL_DestroyTexture(font_image_play);
     SDL_DestroyTexture(font_image_play2); //기본 테트리스 모드
+    SDL_DestroyTexture(font_image_help); //도움말
     SDL_DestroyTexture(font_image_quit);
 
     IMG_Quit();
@@ -88,7 +97,9 @@ void MenuState::input(GameEngine* game) {
                         play = true;
                     else if (currently_selected == 1) //기본 테트리스 모드
                         play2 = true;
-                    else if (currently_selected == 2)
+                    else if (currently_selected == 2) //도움말
+                        help = true;
+                    else if (currently_selected == 3)
                         exit = true;
                     break;
                 default:
@@ -105,7 +116,8 @@ void MenuState::update(GameEngine* game) {
     } else if (play2) { //기본 테트리스 모드
         game->single(); //싱글모드 실행
         game->push_state(PlayState::Instance());
-        //game->pop_state();
+    } else if (help) {
+        game->push_state(HelpState::Instance()); //도움말
     } else if (exit) {
         game->quit();
     }
@@ -133,7 +145,10 @@ void MenuState::render(GameEngine* game) {
     } else if (currently_selected == 1) { //기본 테트리스 모드
         TTF_SetFontStyle(font_play2, TTF_STYLE_UNDERLINE);
         font_image_play2 = render_text("SinglePlay", white, font_play2, game->renderer);
-    } else if (currently_selected == 2) {
+    } else if (currently_selected == 2) { //도움말
+        TTF_SetFontStyle(font_help, TTF_STYLE_UNDERLINE);
+        font_image_help = render_text("Help", white, font_help, game->renderer);
+    } else if (currently_selected == 3) {
         TTF_SetFontStyle(font_quit, TTF_STYLE_UNDERLINE);
         font_image_quit = render_text("Quit", white, font_quit, game->renderer);
     }
@@ -144,9 +159,12 @@ void MenuState::render(GameEngine* game) {
     render_texture(font_image_play2, game->renderer, //기본 테트리스 모드
             (game->width - play2_width)/2,
             (game->height - play2_height)/2+space);
+    render_texture(font_image_help, game->renderer,
+            (game->width - help_width)/2,
+            (game->height - help_height)/2+space*2); //도움말
     render_texture(font_image_quit, game->renderer,
             (game->width - quit_width)/2,
-            (game->height - quit_height)/2+space*2);
+            (game->height - quit_height)/2+space*3);
 
     // Remove underline again.
     if (currently_selected == 0) {
@@ -156,6 +174,9 @@ void MenuState::render(GameEngine* game) {
         TTF_SetFontStyle(font_play2, TTF_STYLE_NORMAL);
         font_image_play2 = render_text("SinglePlay", white, font_play2, game->renderer); //기본 테트리스 모드
     } else if (currently_selected == 2) {
+        TTF_SetFontStyle(font_help, TTF_STYLE_NORMAL);
+        font_image_help = render_text("Help", white, font_help, game->renderer); //도움말
+    } else if (currently_selected == 3) {
         TTF_SetFontStyle(font_quit, TTF_STYLE_NORMAL);
         font_image_quit = render_text("Quit", white, font_quit, game->renderer);
     }

@@ -35,6 +35,7 @@ class MenuState : public GameState {
 
     bool play;
     bool play2; //기본 테트리스모드
+    bool help; //도움말
     bool exit;
 
     // Font textures.
@@ -42,16 +43,19 @@ class MenuState : public GameState {
     TTF_Font*       font_title;
     TTF_Font*       font_play;
     TTF_Font*       font_play2; //기본 테트리스모드
+    TTF_Font*       font_help; //도움말
     TTF_Font*       font_quit;
     SDL_Texture*    font_image_title;
     SDL_Texture*    font_image_play;
     SDL_Texture*    font_image_play2; //기본 테트리스모드
+    SDL_Texture*    font_image_help; //도움말
     SDL_Texture*    font_image_quit;
 
     // Text position.
     int title_width, title_height;
     int play_width, play_height;
     int play2_width, play2_height; //기본 테트리스모드
+    int help_width, help_height; //도움말
     int quit_width, quit_height;
 
     // Currently selected menu item.
