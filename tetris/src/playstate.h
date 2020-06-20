@@ -103,14 +103,14 @@ class PlayState : public GameState {
        int type = 0;            
        float remain_time;
     } mouse_item;
-    const float item_remain_time = 6.0f;     // 아이템이 화면에 존재하는 시간
+    const float item_remain_time = 4.0f;     // 아이템이 화면에 존재하는 시간
     const SDL_Color item_colors[4] = {       // 아이템 색깔
        {0, 0, 0, 255}, // dummy
        {255, 0, 0, 255},                     // 무적
        {0, 0, 255, 255},                     // 블럭 파괴
        {255, 255, 255, 255}                  // 블럭 생성
     };
-    float item_spawn_prob = 0.9f;            // 블럭생성시 아이템이 생성될 확률
+    float item_spawn_prob = 0.8f;            // 블럭생성시 아이템이 생성될 확률
     TTF_Font* font_item_description;
     SDL_Texture* item_description[3];
     TTF_Font *font_tetro_description;
