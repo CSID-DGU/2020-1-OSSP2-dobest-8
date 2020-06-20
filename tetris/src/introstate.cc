@@ -66,7 +66,7 @@ void IntroState::render(GameEngine* game) {
 
 void IntroState::render_logo(GameEngine* game) {
     if (logo_status == FADE_IN) {
-        alpha += 3;
+        alpha += 4;
         if (alpha >= 255) {
             alpha = 255;
             logo_status = REMAIN;
@@ -75,7 +75,8 @@ void IntroState::render_logo(GameEngine* game) {
         SDL_Delay(2000);
         logo_status = FADE_OUT;
     } else if (logo_status == FADE_OUT) {
-        alpha -= 3;
+        //천천히 사라짐
+        alpha -= 0.3; 
         if (alpha <= 0) {
             alpha = 0;
             logo_status = FADE_IN;
